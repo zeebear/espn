@@ -1,10 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :find_message, only: %i[create]
-  before_action :find_comment
-
-  def new
-
-  end
+  before_action :find_message, only: %i[create edit update destroy find_comment]
+  before_action :find_comment, only: %[edit update destroy]
 
   def create
     @comment = @message.comments.create(comment_params)
@@ -16,6 +12,21 @@ class CommentsController < ApplicationController
     render 'new'
   end
 
+  def edit
+  end
+
+  def update
+    redirect_to message_path(@message) if @comment.update(comment_params)
+    return
+
+    render 'edit'
+  end
+
+  def destroy
+    @comment.destroy
+    redirect_to message_path(@message)
+  end
+
   private
 
   def find_message
@@ -23,7 +34,7 @@ class CommentsController < ApplicationController
   end
 
   def find_comment
-    @comment = Comment.find(params[:id])
+    @comment = @message.comments.find(params[:id])
   end
 
   def comment_params
