@@ -3,7 +3,7 @@
 
     <h2 class="message-title"><%= @message.title %></h2>
 
-    <p class="message-posted-by"><%= time_ago_in_words(@message.created_at) ago %></p>
+    <p class="message-posted-by"><%= time_ago_in_words(@message.created_at) %> ago</p>
 
     <p class="message-desc"><%= @message.description %></p>
 
